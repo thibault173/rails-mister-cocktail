@@ -6,27 +6,30 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-puts "Cleanind database..."
+puts "Cleaning database..."
 
 Cocktail.destroy_all
+Ingredient.destroy_all
+
+puts "Now #{Cocktail.all.size} cocktails and #{Ingredient.all.size} ingredients and #{Dose.all.size} doses in database !"
 
 puts "Adding cocktails..."
 
 10.times do
-
   cocktail = Cocktail.new(name: Faker::Beer.hop)
   cocktail.save
 
+  4.times do
+    ingredient = Ingredient.new(name: Faker::Food.ingredient)
+    ingredient.save
+
+    dose = Dose.new(description: Faker::Food.description,
+          cocktail: cocktail,
+        ingredient: ingredient
+      )
+    dose.save!
+  end
 end
 
-puts "Adding ingredients..."
 
-20.times do
-
-  ingredient = Ingredient.new(name: Faker::Food.ingredient)
-  ingredient.save!
-
-end
-
-
-puts "Now #{Cocktail.all.size} cocktails and #{Ingredient.all.size} ingredients in database !"
+puts "Now #{Cocktail.all.size} cocktails and #{Ingredient.all.size} ingredients and #{Dose.all.size} doses in database !"

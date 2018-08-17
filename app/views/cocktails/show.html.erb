@@ -1,5 +1,8 @@
 <h1> <%= @cocktail.name %> </h1>
 
+<%= cl_image_tag(@cocktail.photo,
+      width: 400, height: 300, crop: :fill) %>
+
 <h5>Ingredient - dose :</h5>
 
 <ul>

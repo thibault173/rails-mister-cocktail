@@ -9,6 +9,7 @@
 puts "Cleaning database..."
 
 Cocktail.destroy_all
+Dose.destroy_all
 Ingredient.destroy_all
 
 puts "Now #{Cocktail.all.size} cocktails and #{Ingredient.all.size} ingredients and #{Dose.all.size} doses in database !"

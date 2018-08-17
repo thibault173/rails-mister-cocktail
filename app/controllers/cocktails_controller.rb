@@ -1,6 +1,6 @@
 class CocktailsController < ApplicationController
   def index
-    @cocktails = Cocktail.all
+    @cocktails = params[:query].nil? ? Cocktail.all : Cocktail.where("name LIKE '%#{params[:query]}%'")
   end
 
   def show

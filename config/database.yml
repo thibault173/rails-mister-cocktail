@@ -17,9 +17,8 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  # For details on connection pooling, see Rails configuration guide
-  # http://guides.rubyonrails.org/configuring.html#database-pooling
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  pool: 5
+
 
 development:
   <<: *default
@@ -59,6 +58,8 @@ test:
   <<: *default
   database: rails-mister-cocktail_test
 
+
+
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
 # ever seen by anyone, they now have access to your database.
@@ -78,8 +79,11 @@ test:
 #   production:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
-production:
-  <<: *default
-  database: rails-mister-cocktail_production
-  username: rails-mister-cocktail
-  password: <%= ENV['RAILS-MISTER-COCKTAIL_DATABASE_PASSWORD'] %>
+
+
+# Ask to delete this lines in exercise
+# production:
+#   <<: *default
+#   database: rails-mister-cocktail_production
+#   username: rails-mister-cocktail
+#   password: <%= ENV['RAILS-MISTER-COCKTAIL_DATABASE_PASSWORD'] %>

@@ -11,9 +11,11 @@ require_relative 'data_for_seed'
 # My db:seed
 puts "Cleaning database..."
 
-Cocktail.destroy_all
-Dose.destroy_all
-Ingredient.destroy_all
+if Rails.env.development?
+  Cocktail.destroy_all
+  Dose.destroy_all
+  Ingredient.destroy_all
+end
 
 puts "Now #{Cocktail.all.size} cocktails and #{Ingredient.all.size} ingredients and #{Dose.all.size} doses in database !"
 
@@ -32,7 +34,6 @@ puts "Adding random cocktails..."
   4.times do
     dose = Dose.new
     until dose.save
-      ingredient = Ingredient.all.sample
       dose = Dose.new(description: DESCRIPTION.sample,
               cocktail: cocktail,
             ingredient: Ingredient.all.sample

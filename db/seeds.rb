@@ -6,6 +6,9 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+require_relative 'data_for_seed'
+
+# My db:seed
 puts "Cleaning database..."
 
 Cocktail.destroy_all
@@ -14,23 +17,27 @@ Ingredient.destroy_all
 
 puts "Now #{Cocktail.all.size} cocktails and #{Ingredient.all.size} ingredients and #{Dose.all.size} doses in database !"
 
-puts "Adding cocktails..."
+puts "Adding all ingredients from data_for_seed..."
 
-10.times do
-  cocktail = Cocktail.new(name: Faker::Beer.hop)
-  cocktail.save
+INGREDIENTS.each{ |ingredient| Ingredient.create(name: ingredient)}
+
+puts "Adding random cocktails..."
+
+20.times do
+  cocktail = Cocktail.new()
+  until cocktail.save
+    cocktail = Cocktail.new(name: COCKTAILS.sample)
+  end
 
   4.times do
-    ingredient = Ingredient.new(name: Faker::Food.ingredient)
-    ingredient.save
-
-    dose = Dose.new(description: Faker::Food.description,
-          cocktail: cocktail,
-        ingredient: ingredient
-      )
-    dose.save!
+    dose = Dose.new
+    until dose.save
+      ingredient = Ingredient.all.sample
+      dose = Dose.new(description: DESCRIPTION.sample,
+              cocktail: cocktail,
+            ingredient: Ingredient.all.sample
+          )
+    end
   end
 end
-
-
 puts "Now #{Cocktail.all.size} cocktails and #{Ingredient.all.size} ingredients and #{Dose.all.size} doses in database !"

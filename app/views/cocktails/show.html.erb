@@ -16,12 +16,8 @@
   <% end %>
 </ul>
 
-<%= simple_form_for [@cocktail, @dose] do |f| %>
-  <%= f.input :description %>
-  <%= f.association :ingredient %>
-  <%= f.button :submit %>
-<% end %>
+<%= render 'layouts/form', cocktail: @cocktail, dose: @dose %>
 
-
+<%= link_to "Edit this cocktail", edit_cocktail_path(@cocktail)  %> <br>
 
 <%= link_to "Back", root_path  %>

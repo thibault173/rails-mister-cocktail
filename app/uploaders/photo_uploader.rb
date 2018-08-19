@@ -1,7 +1,8 @@
 class PhotoUploader < CarrierWave::Uploader::Base
   include Cloudinary::CarrierWave
-  def store_identifier
-    "mister-cocktail"
-  end
+
+  def public_id
+    return "mister-cocktail/" + model.name
+   end
 
 end
